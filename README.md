@@ -50,23 +50,112 @@ c'est seulement une fois qu'un produit aura été crée que vous pourré alors f
   ]
 }
 
-3_ accessible : admin, client
-Pour utiliser /items READ rendez-vous dans la catégorie ITEM Admin cliquer sur le premier liens si vous n’êtes pas connecté connectez vous en tant qu’admin avec les informations fourni juste en haut. Il vous suffit uniquement de mettre ça dans URL : http://localhost:3000/items/1  (le 1 correspond à l’id de la liste que vous voulez afficher) et de rester dans la catégorie GET. Maintenant vous pouvez cliquer sur SEND et ça vous affichera la liste qui à l’id que vous avez demandé.
+3_ Pour utiliser /api/categories/{id}. Pour chercher une catégorie via son id. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/categories/{id} (remplacer id par l'id de la catégorie que vous souhaitez chercher) et de rester dans la catégorie GET. Si vous appuyez sur SEND vous pourrez voir la catégorie comportant l'id que vous avez spécifié.
 
-5_ accessible : admin
-Pour utiliser /items UPDATE rendez-vous dans la catégorie ITEM Admin cliquer sur le premier liens si vous n’êtes pas connecté connectez vous en tant qu’admin avec les informations fourni juste en haut. Il vous suffit uniquement de mettre ça dans URL : http://localhost:3000/items/1 (le 1 correspond à l’id de la liste que vous voulez modifier) et passer dans la catégorie PUT. Maintenant cliquez sur l’onglet body, sélectionnez raw, et mettez vous en JSON dans le menu déroulant à droite. 
-Maintenant écrivez une liste en remplacer par ce que vous voulez mettre dans votre liste : 
+4_Pour utiliser /api/categories, pour modifier une catéogrie. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/categories/{id} et de vous mettre dans la catégorie POST. Maintenant cliquez sur l’onglet body, sélectionnez raw, et mettez vous en JSON dans le menu déroulant à droite. Maintenant écrivez une liste en remplacer par ce que vous voulez mettre dans votre liste : 
 {
-    "description": "des lasagne aux épinards,
-    "name": "LASAGNE",
-    "price": 4.00
+  "name": "string",
+  "products": [
+    "string"
+  ]
+}
+Si vous appuyez sur SEND vous pourrez voir que les modifications auront bien été faites.
+
+5_ Pour utiliser /api/categories/{id} DELETE. Pour supprimer une catégorie grâce à son id. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/categories/{id} (remplacer id par l'id de la catégorie que vous souhaitez supprimer) et ce mettre dans la catégorie DELETE. Si vous appuyez sur SEND vous pourrez voir la catégorie comportant l'id que vous avec spécifié qui à bien été supprimé.
+
+### Routes MediaObject
+
+#### *Avant toute chose il faut lancer ce lien : http://localhost/api/docs dans votre navigateur. Il faut vous rendre en bas de la page dans la partie Token. Cliquer sur Try it out. Renseignez email : celui que vous avez créer dans docker et password : celui que vous avez crée dans docker. Ensuite copier le token qui vous à été crée*
+
+
+1_ Pour utiliser /api/media_objects, pour visualiser tous les médias.
+Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/media_objects et de rester dans la catégorie GET. Si vous appuyez sur SEND vous pourrez voir tous les médias qui ont étés créés. 
+
+2_ Pour utiliser /api/media_objects, pour créer un nouveau média. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/media_objects et de vous mettre dans la catégorie POST. Maintenant cliquez sur l’onglet body, sélectionnez form-data, et mettez dans Key mettez : file et dans value : (l'image que vous souhaitez)
+Si vous appuyez sur SEND vous pourrez voir que l'imaga à été publié.
+
+3_ Pour utiliser /api/media_objects/{id}. Pour chercher un média via son id. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : localhost/api/media_objects{id} (remplacer id par l'id du média que vous souhaitez chercher) et de rester dans la catégorie GET. Si vous appuyez sur SEND vous pourrez voir le média comportant l'id que vous avez spécifié.
+
+### Routes Product
+
+#### *Avant toute chose il faut lancer ce lien : http://localhost/api/docs dans votre navigateur. Il faut vous rendre en bas de la page dans la partie Token. Cliquer sur Try it out. Renseignez email : celui que vous avez créer dans docker et password : celui que vous avez crée dans docker. Ensuite copier le token qui vous à été crée*
+
+1_ Pour utiliser /api/products, pour visualiser toutes les produits.
+Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/products et de rester dans la catégorie GET. Si vous appuyez sur SEND vous pourrez voir tous les produits qui ont étés créés. 
+
+2_ Pour utiliser /api/products, pour créer un nouveau produits. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/products et de vous mettre dans la catégorie POST. Maintenant cliquez sur l’onglet body, sélectionnez raw, et mettez vous en JSON dans le menu déroulant à droite. Maintenant écrivez une liste en remplacer par ce que vous voulez mettre dans votre liste : 
+{
+  "name": "string",
+  "description": "string",
+  "price": 0,
+  "categories": [
+    "string"
+  ],
+  "image": "string"
+}
+Si vous appuyez sur SEND vous pourrez voir que ça ne fonctionne pas on vous met un message d'erreur. Ceci est normal c'est une erreur interne que nous ne pouvons pas régler. Pour contourner cette erreur il faut retirer la ligne "categories" de cette manière :
+{
+  "name": "string",
+  "description": "string",
+  "price": 0,
+  "image": "string"
+}
+c'est seulement une fois qu'une catégorie aura été crée que vous pourré alors faire comme ce ci : 
+{
+  "name": "string",
+  "description": "string",
+  "price": 0,
+  "categories": [
+    "/api/categories/1"
+  ],
+  "image": "string"
 }
 
-Si vous appuyez sur SEND vous pourrez voir que votre listes a été  créé.
+3_ Pour utiliser /api/products/{id}. Pour chercher un produit via son id. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/products/{id} (remplacer id par l'id du produit que vous souhaitez chercher) et de rester dans la catégorie GET. Si vous appuyez sur SEND vous pourrez voir le produit comportant l'id que vous avez spécifié.
 
-6_ accessible : admin
-Pour utiliser /items DELETE rendez-vous dans la catégorie ITEM Admin cliquer sur le premier liens si vous n’êtes pas connecté connectez vous en tant qu’admin avec les informations fourni juste en haut. Il vous suffit uniquement de mettre ça dans URL : http://localhost:3000/items/1 (le 1 correspond à l’id de la liste que vous voulez supprimer) et de passer dans la catégorie DELETE. Maintenant vous pouvez cliquer sur SEND et ça supprimera la liste que vous avez choisi grâce à l’id.
+4_Pour utiliser /api/products/{id}, pour modifier un produit. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/products/{id} et de vous mettre dans la catégorie POST. Maintenant cliquez sur l’onglet body, sélectionnez raw, et mettez vous en JSON dans le menu déroulant à droite. Maintenant écrivez une liste en remplacer par ce que vous voulez mettre dans votre liste : 
+{
+  "name": "string",
+  "description": "string",
+  "price": 0,
+  "categories": [
+    "string"
+  ],
+  "image": "string"
+}
+Si vous appuyez sur SEND vous pourrez voir que les modifications auront bien été faites.
 
-(Vous pouvez faire pareil en vous connectant en tant que client mais vous n’aurais accès que au : 1_, 2_, 4_).
+5_ Pour utiliser /api/products/{id} DELETE. Pour supprimer un produit grâce à son id. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/products/{id} (remplacer id par l'id du produit que vous souhaitez supprimer) et ce mettre dans la catégorie DELETE. Si vous appuyez sur SEND vous pourrez voir le produit comportant l'id que vous avec spécifié qui à bien été supprimé.
 
+### Routes User
 
+#### *Avant toute chose il faut lancer ce lien : http://localhost/api/docs dans votre navigateur. Il faut vous rendre en bas de la page dans la partie Token. Cliquer sur Try it out. Renseignez email : celui que vous avez créer dans docker et password : celui que vous avez crée dans docker. Ensuite copier le token qui vous à été crée*
+
+1_ Pour utiliser /api/users, pour visualiser toutes les user.
+Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/users et de rester dans la catégorie GET. Si vous appuyez sur SEND vous pourrez voir tous les user qui ont étés créés. 
+
+2_ Pour utiliser /api/users, pour créer un nouveau user. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/products et de vous mettre dans la catégorie POST. Maintenant cliquez sur l’onglet body, sélectionnez raw, et mettez vous en JSON dans le menu déroulant à droite. Maintenant écrivez une liste en remplacer par ce que vous voulez mettre dans votre liste : 
+{
+  "email": "user@myshop.com",
+  "password": "thisissecret",
+  "fullName": "John Doe"
+}
+Si vous appuyez sur SEND vous pourrez voir que le user à bien été crée.
+
+3_ Pour utiliser /api/users/{id}. Pour chercher un user via son id. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/users/{id} (remplacer id par l'id du user que vous souhaitez chercher) et de rester dans la catégorie GET. Si vous appuyez sur SEND vous pourrez voir le user comportant l'id que vous avez spécifié.
+
+4_Pour utiliser /api/users/{id}, pour modifier un users. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/users/{id} et de vous mettre dans la catégorie POST. Maintenant cliquez sur l’onglet body, sélectionnez raw, et mettez vous en JSON dans le menu déroulant à droite. Maintenant écrivez une liste en remplacer par ce que vous voulez mettre dans votre liste : 
+{
+  "email": "user@myshop.com",
+  "password": "thisissecret",
+  "fullName": "John Doe"
+}
+Si vous appuyez sur SEND vous pourrez voir que les modifications auront bien été faites.
+
+5_ Pour utiliser /api/users/{id} DELETE. Pour supprimer un user grâce à son id. Il faut ce rendre dans authorization séléctionner Bearer Token puis collé la clef Token ensuite. Il vous suffit uniquement de mettre ça dans URL : http://localhost/api/products/{id} (remplacer id par l'id du user que vous souhaitez supprimer) et ce mettre dans la catégorie DELETE. Si vous appuyez sur SEND vous pourrez voir le user comportant l'id que vous avec spécifié qui à bien été supprimé.
+
+# FIN
+
+Merci de nous avoir fait confiance sur ce projet et d’avoir pris le temps de lire le manuel d’utilisation pour une utilisation optimale pour tout type de personne. Si jamais vous rencontrez quelconque problème vous pouvez me contactez je répondrais dans les plus brefs délais.
+
+Merci.
